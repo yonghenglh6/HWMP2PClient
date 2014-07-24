@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">HWMP2PClient</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="startpage_title_contentDescription">Title</string>
+	<string name="startpage_connect_contentDescription">Connect</string>
+	<string name="startpage_settings_contentDescription">Settings</string>	
+	<string name="mainpage_back_contentDescription">back</string>
+</resources>

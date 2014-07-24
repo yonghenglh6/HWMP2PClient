@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/RelativeLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/MainPageBackgroundColor" >
+
+    <ImageButton
+        android:id="@+id/mainpage_back_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:background="@android:drawable/btn_default_small"
+        android:src="@drawable/mainpage_back" 
+        android:contentDescription="@string/mainpage_back_contentDescription"
+        />
+
+	<ProgressBar
+	    android:id="@+id/batteryProgressBar"
+	    style="@android:style/Widget.ProgressBar.Horizontal"
+	    android:layout_width="125dp"
+	    android:layout_height="59dp"
+	    android:layout_alignRight="@+id/mainpage_back_button"
+	    android:layout_below="@+id/mainpage_back_button"
+	    android:layout_marginTop="21dp"
+	    android:max="100"
+	    android:progress="80"
+	    android:progressDrawable="@drawable/progress" />
+
+</RelativeLayout>
