@@ -17,22 +17,32 @@ public final class R {
     public static final class drawable {
         public static final int battery=0x7f020000;
         public static final int batteryloading2=0x7f020001;
-        public static final int ic_launcher=0x7f020002;
-        public static final int mainpage_back=0x7f020003;
-        public static final int progress=0x7f020004;
-        public static final int startpage_connect=0x7f020005;
-        public static final int startpage_settings=0x7f020006;
-        public static final int startpage_title=0x7f020007;
+        public static final int compass_background=0x7f020002;
+        public static final int compass_pointer=0x7f020003;
+        public static final int ic_launcher=0x7f020004;
+        public static final int mainpage_back=0x7f020005;
+        public static final int progressbar_battery=0x7f020006;
+        public static final int progressbar_volume=0x7f020007;
+        public static final int progressbar_volume_backgroud=0x7f020008;
+        public static final int progressbar_volume_loading=0x7f020009;
+        public static final int startpage_connect=0x7f02000a;
+        public static final int startpage_settings=0x7f02000b;
+        public static final int startpage_title=0x7f02000c;
+        public static final int volume_lable=0x7f02000d;
     }
     public static final class id {
-        public static final int RelativeLayout1=0x7f070002;
-        public static final int batteryProgressBar=0x7f070004;
+        public static final int AbsoluteLayout1=0x7f070003;
+        public static final int RelativeLayout1=0x7f070008;
+        public static final int batteryProgressBar=0x7f070007;
+        public static final int compass_pointer=0x7f070009;
         public static final int imageView1=0x7f070005;
-        public static final int mainpage_back_button=0x7f070003;
+        public static final int mainpage_back_button=0x7f070004;
         public static final int rootContent=0x7f070000;
-        public static final int startpage_connect_button=0x7f070006;
-        public static final int startpage_settings_button=0x7f070007;
-        public static final int stateText=0x7f070001;
+        public static final int scrollView1=0x7f070001;
+        public static final int startpage_connect_button=0x7f07000a;
+        public static final int startpage_settings_button=0x7f07000b;
+        public static final int stateText=0x7f070002;
+        public static final int volumeProgressBar=0x7f070006;
     }
     public static final class layout {
         public static final int activity_hwmp2_pclient=0x7f030000;

@@ -11,17 +11,22 @@ import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 
 public class MainPageFragment extends Fragment {
 	View view;
 	ProgressBar battery;
+	ProgressBar volume;
+	ImageView compass_pointer;
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		view = inflater.inflate(R.layout.fragment_mainpage, container, false);
 //		BatteryView bbiew=new BatteryView(this.getActivity(), null, TRIM_MEMORY_BACKGROUND);
 		battery=(ProgressBar) view.findViewById(R.id.batteryProgressBar);
+		volume=(ProgressBar) view.findViewById(R.id.volumeProgressBar);
+		compass_pointer=(ImageView) view.findViewById(R.id.compass_pointer);
 		return view;
 	}
 	
@@ -32,9 +37,15 @@ public class MainPageFragment extends Fragment {
 			if(battery!=null)
 				battery.setProgress(msg.arg1);
 			break;
+		case MessageEnum.VOLUMECHANGE:
+			if(volume!=null)
+				volume.setProgress(msg.arg1);
+			break;
+		case MessageEnum.ORIENTATIONCHANGE:
+			if(compass_pointer!=null)
+				compass_pointer.setRotation(360-(Float) msg.obj);
 		default:
 			break;
 		}
 	}
-	
 }

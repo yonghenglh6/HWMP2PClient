@@ -1,7 +1,6 @@
 package com.aviacomm.hwmp2p;
 
 
-import com.aviacomm.hwmp2p.sensor.BatteryHandler;
 import com.aviacomm.hwmp2p.sensor.SensorManager;
 import com.aviacomm.hwmp2p.team.ConnectionManager;
 import com.aviacomm.hwmp2p.ui.MainPageFragment;
@@ -67,6 +66,8 @@ public class HWMP2PClient extends Activity implements StartPageFragment.StartPag
 		// TODO Auto-generated method stub
 		switch (msg.what) {
 		case MessageEnum.BATTERYCHANGE:
+		case MessageEnum.VOLUMECHANGE:
+		case MessageEnum.ORIENTATIONCHANGE:
 			mainpageFragment.handleMessage(msg);
 			break;
 		default:
@@ -74,6 +75,4 @@ public class HWMP2PClient extends Activity implements StartPageFragment.StartPag
 		}
 		return false;
 	}
-    
-    
 }
