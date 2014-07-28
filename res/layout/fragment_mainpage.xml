@@ -51,14 +51,15 @@
         android:id="@+id/RelativeLayout1"
         android:layout_width="90dp"
         android:layout_height="90dp"
-        android:layout_x="171dp"
-        android:layout_y="158dp" >
+        android:layout_x="144dp"
+        android:layout_y="76dp" >
 
         <ImageView
             android:id="@+id/compass_pointer"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_centerInParent="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
             android:src="@drawable/compass_pointer" />
     </RelativeLayout>
 

@@ -22,11 +22,16 @@ public class StartPageFragment extends Fragment {
 	StartPageListener listener;
 	ConnectionManager cmanager;
 	public StartPageFragment(ConnectionManager cmanager,StartPageListener listener){
+		super();
 		this.listener=listener;
 		this.cmanager=cmanager;
+		
 	}
 	
-	
+	public StartPageFragment(StartPageListener listener){
+		super();
+		this.listener=listener;
+	}
 	
 	
 	
@@ -38,7 +43,7 @@ public class StartPageFragment extends Fragment {
         View settings=view.findViewById(R.id.startpage_settings_button);
         conenct.setOnClickListener(new OnClickListener() {
 			public void onClick(View arg0) {
-				cmanager.connect();
+				listener.onClickConnect();
 			}
 		});
         settings.setOnClickListener(new OnClickListener() {
@@ -52,5 +57,6 @@ public class StartPageFragment extends Fragment {
     
     public interface StartPageListener {
         public void onClickSetting();
+        public void onClickConnect();
     }
 }

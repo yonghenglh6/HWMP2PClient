@@ -4,13 +4,17 @@ import com.aviacomm.hwmp2p.MessageEnum;
 import com.aviacomm.hwmp2p.R;
 import com.aviacomm.hwmp2p.R.id;
 import com.aviacomm.hwmp2p.R.layout;
+import com.aviacomm.hwmp2p.team.ConnectionManager;
+import com.aviacomm.hwmp2p.ui.StartPageFragment.StartPageListener;
 
 import android.app.Fragment;
 import android.os.Bundle;
 import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 
@@ -19,17 +23,34 @@ public class MainPageFragment extends Fragment {
 	ProgressBar battery;
 	ProgressBar volume;
 	ImageView compass_pointer;
+	MainPageListener listener;
+	ConnectionManager cmanager;
+	ImageButton back;
+	public MainPageFragment(ConnectionManager cmanager,MainPageListener listener){
+		super();
+		this.listener=listener;
+		this.cmanager=cmanager;
+	}
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		view = inflater.inflate(R.layout.fragment_mainpage, container, false);
 //		BatteryView bbiew=new BatteryView(this.getActivity(), null, TRIM_MEMORY_BACKGROUND);
-		battery=(ProgressBar) view.findViewById(R.id.batteryProgressBar);
-		volume=(ProgressBar) view.findViewById(R.id.volumeProgressBar);
-		compass_pointer=(ImageView) view.findViewById(R.id.compass_pointer);
+		initModule();
 		return view;
 	}
 	
+	public void initModule(){
+		battery=(ProgressBar) view.findViewById(R.id.batteryProgressBar);
+		volume=(ProgressBar) view.findViewById(R.id.volumeProgressBar);
+		compass_pointer=(ImageView) view.findViewById(R.id.compass_pointer);
+		back=(ImageButton) view.findViewById(R.id.mainpage_back_button);
+		back.setOnClickListener(new OnClickListener() {
+			public void onClick(View arg0) {
+				listener.onClickBack();
+			}
+		});
+	}
 	
 	public void handleMessage(Message msg){
 		switch (msg.what) {
@@ -48,4 +69,7 @@ public class MainPageFragment extends Fragment {
 			break;
 		}
 	}
+    public interface MainPageListener {
+        public void onClickBack();
+    }
 }
