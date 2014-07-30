@@ -11,18 +11,19 @@ public class ConnectionManager {
 	private WifiP2pManager manager;
 	Activity mainActivity;
 	String currentGsignal;
-	public ConnectionManager(ConnectionListener listener){
+	public ConnectionManager(Activity activity,ConnectionListener listener){
+		this.mainActivity=activity;
 		this.listener=listener;
 	}
 	public void connect(){
 		if(isConnected())
 			listener.onConnectionEstablished();
 	}
-	
-	
+		
 	public boolean isConnected(){
 		return true;
 	}
+	
 	public interface ConnectionListener{
 		public void onConnectionEstablished();
 		public void onConnectionFailed();

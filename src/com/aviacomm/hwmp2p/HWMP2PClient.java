@@ -40,7 +40,7 @@ public class HWMP2PClient extends Activity implements
 		setContentView(R.layout.activity_hwmp2_pclient);
 		log = new MLog((TextView) this.findViewById(R.id.stateText));
 		
-		cmanager = new ConnectionManager(this);
+		cmanager = new ConnectionManager(this,this);
 		SensorManager sensormanager = new SensorManager(this, getHandler());
 		rootContent = (ViewGroup) findViewById(R.id.rootContent);
 		startpageFragment = new StartPageFragment(this);
