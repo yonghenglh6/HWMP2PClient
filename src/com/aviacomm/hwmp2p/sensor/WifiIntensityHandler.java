@@ -1,5 +1,7 @@
 package com.aviacomm.hwmp2p.sensor;
 
+import com.aviacomm.hwmp2p.MessageEnum;
+
 import android.app.Activity;
 import android.content.Context;
 import android.os.Handler;
@@ -27,21 +29,18 @@ public class WifiIntensityHandler {
 		Message msg = new Message();
 		int level = wifiInfo.getRssi();
 		if (level <= 0 && level >= -50) {
-			msg.what = 1;
-			handler.sendMessage(msg);
+			msg.arg1 = 1;
 		} else if (level < -50 && level >= -70) {
-			msg.what = 2;
-			handler.sendMessage(msg);
+			msg.arg1 = 2;
 		} else if (level < -70 && level >= -80) {
-			msg.what = 3;
-			handler.sendMessage(msg);
+			msg.arg1 = 3;
 		} else if (level < -80 && level >= -100) {
-			msg.what = 4;
-			handler.sendMessage(msg);
+			msg.arg1 = 4;
 		} else {
-			msg.what = 5;
-			handler.sendMessage(msg);
+			msg.arg1 = 5;
 		}
+		msg.what = MessageEnum.WIFI_RSSI;
+		handler.sendMessage(msg);
 	}
 
 }

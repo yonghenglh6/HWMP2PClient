@@ -4,4 +4,5 @@ public class MessageEnum {
 	public final static int BATTERYCHANGE =101;
 	public final static int VOLUMECHANGE =102;
 	public final static int ORIENTATIONCHANGE =103;
+	public final static int WIFI_RSSI = 104;
 }
