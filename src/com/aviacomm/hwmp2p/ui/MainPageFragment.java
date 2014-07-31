@@ -26,6 +26,7 @@ public class MainPageFragment extends Fragment {
 	MainPageListener listener;
 	ConnectionManager cmanager;
 	ImageButton back;
+	ImageView wifi_intensity;
 	public MainPageFragment(ConnectionManager cmanager,MainPageListener listener){
 		super();
 		this.listener=listener;
@@ -34,7 +35,7 @@ public class MainPageFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		view = inflater.inflate(R.layout.fragment_mainpage, container, false);
+		view = inflater.inflate(R.layout.fragment_main, container, false);
 //		BatteryView bbiew=new BatteryView(this.getActivity(), null, TRIM_MEMORY_BACKGROUND);
 		initModule();
 		return view;
@@ -50,6 +51,7 @@ public class MainPageFragment extends Fragment {
 				listener.onClickBack();
 			}
 		});
+		wifi_intensity=(ImageView) view.findViewById(R.id.wifiIntensity);
 	}
 	
 	public void handleMessage(Message msg){

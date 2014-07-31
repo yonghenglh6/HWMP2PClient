@@ -18,7 +18,7 @@ public class VolumeHandler implements Runnable {
 	private final int STOP = 2;
 	Context context;
 	Thread thread;
-	IntentFilter filter = new IntentFilter();
+//	IntentFilter filter = new IntentFilter();
 
 	public VolumeHandler(Context context, Handler handler) {
 		this.context = context;

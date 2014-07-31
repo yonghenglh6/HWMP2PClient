@@ -2,6 +2,8 @@ package com.aviacomm.hwmp2p;
 
 import com.aviacomm.hwmp2p.sensor.SensorManager;
 import com.aviacomm.hwmp2p.team.ConnectionManager;
+import com.aviacomm.hwmp2p.ui.ActionPageFragment;
+import com.aviacomm.hwmp2p.ui.DisplayPageFragment;
 import com.aviacomm.hwmp2p.ui.MainPageFragment;
 import com.aviacomm.hwmp2p.ui.MainPageFragment.MainPageListener;
 import com.aviacomm.hwmp2p.ui.StartPageFragment;
@@ -13,6 +15,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.Layout;
 import android.util.AttributeSet;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -22,14 +25,17 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class HWMP2PClient extends Activity implements
-		StartPageFragment.StartPageListener,
 		ConnectionManager.ConnectionListener, Handler.Callback,
 		MainPageListener {
-	
+
 	public static MLog log;
-	StartPageFragment startpageFragment;
+	// StartPageFragment startpageFragment;
 	ViewGroup rootContent;
+	// ViewGroup displayContent;
+	// ViewGroup actionContent;
 	MainPageFragment mainpageFragment;
+	DisplayPageFragment displaypageFragment;
+	ActionPageFragment actionpageFragment;
 	ConnectionManager cmanager;
 	Handler handler = new Handler(this);
 	Fragment currentFragmentInRootContent;
@@ -39,21 +45,38 @@ public class HWMP2PClient extends Activity implements
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_hwmp2_pclient);
 		log = new MLog((TextView) this.findViewById(R.id.stateText));
-		
-		cmanager = new ConnectionManager(this,this);
+
+		cmanager = new ConnectionManager(this, this);
 		SensorManager sensormanager = new SensorManager(this, getHandler());
-		rootContent = (ViewGroup) findViewById(R.id.rootContent);
-		startpageFragment = new StartPageFragment(this);
+		
+		
+		//init three fragment in the main activity
 		mainpageFragment = new MainPageFragment(cmanager, this);
+		displaypageFragment = new DisplayPageFragment(this);
+		actionpageFragment = new ActionPageFragment(this);
+		
+		
+		rootContent = (ViewGroup) findViewById(R.id.rootContent);
+		showSingleFragmentInRootContent(mainpageFragment);
+		getFragmentManager().beginTransaction()
+				.add(R.id.displayContent, displaypageFragment).commit();
+		getFragmentManager().beginTransaction()
+				.add(R.id.actionContent, actionpageFragment).commit();
+		
+		
+		
+		
+		//start Sensor
+		// startpageFragment = new StartPageFragment(this);
 		sensormanager.start();
 
 		// show startPage
-		showSingleFragmentInRootContent(startpageFragment);
+		// showSingleFragmentInRootContent(startpageFragment);
 	}
 
 	public void onConnectionEstablished() {
-		getFragmentManager().beginTransaction().remove(startpageFragment)
-				.add(R.id.rootContent, mainpageFragment).commit();
+		// getFragmentManager().beginTransaction().remove(startpageFragment)
+		// .add(R.id.rootContent, mainpageFragment).commit();
 	}
 
 	public void showSingleFragmentInRootContent(Fragment page) {
@@ -70,14 +93,9 @@ public class HWMP2PClient extends Activity implements
 
 	}
 
-	public void onClickBack() {
-		showSingleFragmentInRootContent(startpageFragment);
-	}
-
 	@Override
 	public void onConnectionFailed() {
 		// TODO Auto-generated method stub
-
 	}
 
 	public Handler getHandler() {
@@ -91,6 +109,7 @@ public class HWMP2PClient extends Activity implements
 		case MessageEnum.BATTERYCHANGE:
 		case MessageEnum.VOLUMECHANGE:
 		case MessageEnum.ORIENTATIONCHANGE:
+		case MessageEnum.WIFIINTENSITYCHANGE:
 			mainpageFragment.handleMessage(msg);
 			break;
 		default:
@@ -100,7 +119,8 @@ public class HWMP2PClient extends Activity implements
 	}
 
 	@Override
-	public void onClickConnect() {
-		showSingleFragmentInRootContent(mainpageFragment);
+	public void onClickBack() {
+		// TODO Auto-generated method stub
+
 	}
 }

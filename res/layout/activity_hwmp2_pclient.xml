@@ -7,12 +7,30 @@
     <LinearLayout
         android:id="@+id/rootContent"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="200dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:orientation="vertical" >
     </LinearLayout>
+    <LinearLayout
+        android:id="@+id/displayContent"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/rootContent"
+        android:orientation="vertical" >
+    </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/actionContent"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_above="@+id/scrollView1"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/displayContent"
+        android:orientation="vertical" >
+
+    </LinearLayout>
     <ScrollView
         android:id="@+id/scrollView1"
         android:layout_width="match_parent"
@@ -30,5 +48,7 @@
                 android:layout_height="wrap_content" />
         </LinearLayout>
     </ScrollView>
+
+
 
 </RelativeLayout>
