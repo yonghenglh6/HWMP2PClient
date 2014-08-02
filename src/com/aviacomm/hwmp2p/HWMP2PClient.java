@@ -2,6 +2,7 @@ package com.aviacomm.hwmp2p;
 
 import com.aviacomm.hwmp2p.sensor.SensorManager;
 import com.aviacomm.hwmp2p.team.ConnectionManager;
+import com.aviacomm.hwmp2p.ui.APSelectorFragment;
 import com.aviacomm.hwmp2p.ui.ActionPageFragment;
 import com.aviacomm.hwmp2p.ui.DisplayPageFragment;
 import com.aviacomm.hwmp2p.ui.MainPageFragment;
@@ -12,6 +13,7 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.Context;
+import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -23,6 +25,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class HWMP2PClient extends Activity implements
 		ConnectionManager.ConnectionListener, Handler.Callback,
@@ -37,16 +40,18 @@ public class HWMP2PClient extends Activity implements
 	DisplayPageFragment displaypageFragment;
 	ActionPageFragment actionpageFragment;
 	ConnectionManager cmanager;
-	Handler handler = new Handler(this);
+	public static Handler handler ;
 	Fragment currentFragmentInRootContent;
-
+	APSelectorFragment apSelectorFragment;
+	TextView statusView;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_hwmp2_pclient);
-		log = new MLog((TextView) this.findViewById(R.id.stateText));
-
-		cmanager = new ConnectionManager(this, this);
+		handler= new Handler(this);
+		log = new MLog(handler);
+		statusView=(TextView) this.findViewById(R.id.stateText);
+		cmanager = new ConnectionManager(this,this,handler);
 		SensorManager sensormanager = new SensorManager(this, getHandler());
 		
 		
@@ -54,7 +59,7 @@ public class HWMP2PClient extends Activity implements
 		mainpageFragment = new MainPageFragment(cmanager, this);
 		displaypageFragment = new DisplayPageFragment(this);
 		actionpageFragment = new ActionPageFragment(this);
-		
+		apSelectorFragment=new APSelectorFragment(this);
 		
 		rootContent = (ViewGroup) findViewById(R.id.rootContent);
 		showSingleFragmentInRootContent(mainpageFragment);
@@ -68,7 +73,7 @@ public class HWMP2PClient extends Activity implements
 		
 		//start Sensor
 		// startpageFragment = new StartPageFragment(this);
-		sensormanager.start();
+		sensormanager.startall();
 
 		// show startPage
 		// showSingleFragmentInRootContent(startpageFragment);
@@ -79,7 +84,7 @@ public class HWMP2PClient extends Activity implements
 		// .add(R.id.rootContent, mainpageFragment).commit();
 	}
 
-	public void showSingleFragmentInRootContent(Fragment page) {
+	private void showSingleFragmentInRootContent(Fragment page) {
 		FragmentTransaction transaction = getFragmentManager()
 				.beginTransaction();
 		if (currentFragmentInRootContent != null)
@@ -112,6 +117,11 @@ public class HWMP2PClient extends Activity implements
 		case MessageEnum.WIFIINTENSITYCHANGE:
 			mainpageFragment.handleMessage(msg);
 			break;
+			
+		case MessageEnum.LOGMESSAGE:
+			statusView.append((String)msg.obj);
+			break;
+			 
 		default:
 			break;
 		}
@@ -121,6 +131,17 @@ public class HWMP2PClient extends Activity implements
 	@Override
 	public void onClickBack() {
 		// TODO Auto-generated method stub
+		Toast.makeText(this, "where do you want go back to?", Toast.LENGTH_SHORT ).show();
+	}
 
+	@Override
+	public void onClickScan() {
+		showSingleFragmentInRootContent(apSelectorFragment);
+		cmanager.discoverTeamService();
+	}
+
+	@Override
+	public void onClickCreateTeam() {
+		cmanager.createTeamService();
 	}
 }

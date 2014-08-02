@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -27,6 +28,8 @@ public class MainPageFragment extends Fragment {
 	ConnectionManager cmanager;
 	ImageButton back;
 	ImageView wifi_intensity;
+	Button scan;
+	Button createTeam;
 	public MainPageFragment(ConnectionManager cmanager,MainPageListener listener){
 		super();
 		this.listener=listener;
@@ -52,6 +55,22 @@ public class MainPageFragment extends Fragment {
 			}
 		});
 		wifi_intensity=(ImageView) view.findViewById(R.id.wifiIntensity);
+		scan=(Button) view.findViewById(R.id.mainpage_scan);
+		createTeam=(Button) view.findViewById(R.id.mainpage_createteam);
+		scan.setOnClickListener(new OnClickListener() {	
+			@Override
+			public void onClick(View arg0) {
+				listener.onClickScan();
+			}
+		});
+		createTeam.setOnClickListener(new OnClickListener() {	
+			@Override
+			public void onClick(View arg0) {
+				listener.onClickCreateTeam();
+			}
+		});
+//		wifi_intensity.setImageResource(R.drawable.wifi_intensity_levellist);
+//		wifi_intensity.setImageLevel(3);
 	}
 	
 	public void handleMessage(Message msg){
@@ -67,11 +86,18 @@ public class MainPageFragment extends Fragment {
 		case MessageEnum.ORIENTATIONCHANGE:
 			if(compass_pointer!=null)
 				compass_pointer.setRotation(360-(Float) msg.obj);
+			break;
+		case MessageEnum.WIFIINTENSITYCHANGE:
+			if(wifi_intensity!=null)
+				wifi_intensity.setImageLevel(msg.arg1);
+			break;
 		default:
 			break;
 		}
 	}
     public interface MainPageListener {
         public void onClickBack();
+        public void onClickScan();
+        public void onClickCreateTeam();
     }
 }

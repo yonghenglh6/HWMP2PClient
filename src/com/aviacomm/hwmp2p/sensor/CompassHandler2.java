@@ -63,8 +63,9 @@ public class CompassHandler2 implements SensorEventListener {
 	public void onSensorChanged(SensorEvent event) {
 		if (event.sensor == mOrientationSensor) {
 			if(tolog_count++%20==0){
-				HWMP2PClient.log.i(String.format("Orientation: %f\n",
-						event.values[0]));
+//				HWMP2PClient.log.i(String.format("Orientation: %f",
+//						event.values[0]));
+
 			}
 			handler.obtainMessage(MessageEnum.ORIENTATIONCHANGE,Float.valueOf(event.values[0]))
 			.sendToTarget();
